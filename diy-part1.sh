@@ -15,11 +15,11 @@ echo "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" >>
 
 # Add a feed source
 # passwall
-echo 'src-git-full passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git' >> feeds.conf.default
-echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git' >> feeds.conf.default
+#echo 'src-git-full passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git' >> feeds.conf.default
+#echo 'src-git passwall2 https://github.com/xiaorouji/openwrt-passwall2.git' >> feeds.conf.default
 # mosdns
-echo 'src-git mosdns https://github.com/sbwml/luci-app-mosdns.git' >> feeds.conf.default
+#echo 'src-git mosdns https://github.com/sbwml/luci-app-mosdns.git' >> feeds.conf.default
 
 # Add extra package
 # dogcom
-git clone https://github.com/mchome/openwrt-dogcom package/openwrt-dogcom
+#git clone https://github.com/mchome/openwrt-dogcom package/openwrt-dogcom
