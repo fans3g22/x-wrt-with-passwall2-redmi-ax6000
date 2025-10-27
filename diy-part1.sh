@@ -10,6 +10,7 @@
 # See /LICENSE for more information.
 #
 echo "src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main" >> "feeds.conf.default"
+echo "src-git luci-app-adguardhome https://github.com/rufengsuixing/luci-app-adguardhome;main" >> "feeds.conf.default"
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
 
