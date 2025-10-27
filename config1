@@ -1,0 +1,88 @@
+#
+# OpenWrt Configuration for Xiaomi Redmi AX6000
+# Nikki Dependencies Included
+#
+
+# =========================================
+# Target / Device
+# =========================================
+CONFIG_TARGET_mediatek=y
+CONFIG_TARGET_mediatek_mt7986=y
+CONFIG_TARGET_mediatek_mt7986_DEVICE_xiaomi_redmi-router-ax6000-stock=y
+CONFIG_TARGET_ROOTFS_SQUASHFS=y
+CONFIG_TARGET_ROOTFS_TARGZ=y
+CONFIG_TARGET_MULTI_PROFILE=y
+CONFIG_TARGET_PER_DEVICE_ROOTFS=y
+CONFIG_HAS_SUBTARGETS=y
+
+# =========================================
+# Core Network & System
+# =========================================
+CONFIG_PACKAGE_kmod-tun=y
+CONFIG_PACKAGE_kmod-inet-diag=y
+CONFIG_PACKAGE_kmod-nft-socket=y
+CONFIG_PACKAGE_kmod-nft-tproxy=y
+CONFIG_PACKAGE_ip-full=y
+CONFIG_PACKAGE-firewall4=y
+CONFIG_PACKAGE-ca-bundle=y
+CONFIG_PACKAGE-curl=y
+CONFIG_PACKAGE-yq=y
+CONFIG_PACKAGE-ethtool=y
+
+# =========================================
+# Wireless
+# =========================================
+CONFIG_PACKAGE_wpad-basic-wolfssl=y
+CONFIG_PACKAGE-mac80211=y
+CONFIG_PACKAGE-mt76x8=y
+CONFIG_PACKAGE-hostapd=y
+CONFIG_PACKAGE-iptables-mod-tproxy=y
+
+# =========================================
+# LuCI Web Interface
+# =========================================
+CONFIG_PACKAGE_luci=y
+CONFIG_PACKAGE_luci-base=y
+CONFIG_PACKAGE_luci-mod-admin-full=y
+CONFIG_PACKAGE_luci-theme-bootstrap=y
+CONFIG_PACKAGE_luci-ssl=y          # HTTPS support
+CONFIG_PACKAGE_uhttpd=y
+CONFIG_PACKAGE_uhttpd-mod-ubus=y
+CONFIG_PACKAGE_luci-app-uhttpd=y
+
+# =========================================
+# Automatic Reboot
+# =========================================
+CONFIG_PACKAGE_autoreboot=y
+CONFIG_PACKAGE_autoreboot-cron=y
+
+# =========================================
+# AdGuardHome
+# =========================================
+CONFIG_PACKAGE_adguardhome=y
+CONFIG_PACKAGE_luci-app-adguardhome=y
+
+# =========================================
+# nikki plugin
+# =========================================
+CONFIG_PACKAGE_nikki=y
+
+# =========================================
+# Minimal Optimizations (disable unnecessary packages)
+# =========================================
+CONFIG_PACKAGE_luci-app-firewall=n
+CONFIG_PACKAGE_luci-app-samba=n
+CONFIG_PACKAGE_luci-app-opkg=n
+CONFIG_PACKAGE_luci-app-ddns=n
+CONFIG_PACKAGE_luci-app-upnp=n
+CONFIG_PACKAGE_luci-app-wol=n
+CONFIG_PACKAGE_luci-app-watchcat=n
+CONFIG_PACKAGE_luci-app-transmission=n
+CONFIG_PACKAGE_luci-app-qos=n
+
+# =========================================
+# Build Options
+# =========================================
+CONFIG_DEVEL=y
+CONFIG_BUILD_PATENTED=y
+CONFIG_BUILD_PRELOAD=y
