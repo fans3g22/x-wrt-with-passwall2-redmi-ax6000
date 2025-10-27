@@ -7,9 +7,13 @@
 # Target / Device
 # (无修改)
 # =========================================
+# =========================================
+# Target / Device
+# (已根据 OpenWrt main 分支修改为 filogic 目标)
+# =========================================
 CONFIG_TARGET_mediatek=y
-CONFIG_TARGET_mediatek_mt7986=y
-CONFIG_TARGET_mediatek_mt7986_DEVICE_xiaomi_redmi-router-ax6000-stock=y
+CONFIG_TARGET_mediatek_filogic=y
+CONFIG_TARGET_DEVICE_mediatek_filogic_DEVICE_xiaomi_redmi-router-ax6000=y
 CONFIG_TARGET_ROOTFS_SQUASHFS=y
 CONFIG_TARGET_ROOTFS_TARGZ=y
 CONFIG_TARGET_MULTI_PROFILE=y
