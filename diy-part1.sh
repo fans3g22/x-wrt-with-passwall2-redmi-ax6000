@@ -12,7 +12,8 @@ cp feeds.conf.default feeds.conf.default.bak
 
 # 添加额外 feed 源
 echo 'src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main' >> feeds.conf.default
-echo 'src-git luci-app-adguardhome https://github.com/rufengsuixing/luci-app-adguardhome;main' >> feeds.conf.default
+echo "src-git adguardhome https://github.com/rufengsuixing/luci-app-adguardhome;main" >> "feeds.conf.default"
+
 
 #（可选）查看文件结构用于调试
 echo "=== feeds.conf.default 内容 ==="
