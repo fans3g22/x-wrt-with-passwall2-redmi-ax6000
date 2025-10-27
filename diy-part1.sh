@@ -13,6 +13,9 @@ cp feeds.conf.default feeds.conf.default.bak
 # 添加额外 feed 源
 echo 'src-git nikki https://github.com/nikkinikki-org/OpenWrt-nikki.git;main' >> feeds.conf.default
 echo 'src-git packages_lean https://github.com/coolsnowwolf/lede.git;master' >> feeds.conf.default
+if [ ! -d package/adguardhome ]; then
+    git clone https://github.com/kongfl888/luci-app-adguardhome.git package/adguardhome
+fi
 
 
 #（可选）查看文件结构用于调试
