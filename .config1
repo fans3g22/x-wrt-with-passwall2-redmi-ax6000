@@ -6,99 +6,105 @@ CONFIG_TARGET_mediatek_filogic=y
 CONFIG_TARGET_DEVICE_mediatek_filogic_DEVICE_xiaomi_redmi-router-ax6000=y
 CONFIG_TARGET_ROOTFS_SQUASHFS=y
 CONFIG_TARGET_ROOTFS_TARGZ=y
+CONFIG_TARGET_MULTI_PROFILE=y
+CONFIG_TARGET_PER_DEVICE_ROOTFS=y
+CONFIG_HAS_SUBTARGETS=y
 
 # =========================================
-# Usteer & WiFi Roaming (新增)
-# ref: https://openwrt.org/docs/guide-user/network/wifi/usteer
+# Wireless & Roaming (新增 usteer)
 # =========================================
-# usteer 核心组件
+# usteer 智能漫游核心组件
 CONFIG_PACKAGE_usteer=y
-# usteer LuCI 配置界面
 CONFIG_PACKAGE_luci-app-usteer=y
-# 确保使用支持 802.11k/v 的 hostapd 版本 (wpad-openssl 是最佳选择)
+# 确保使用支持 802.11k/v 漫游的全功能 wpad
 CONFIG_PACKAGE_wpad-openssl=y
-CONFIG_PACKAGE_hostapd-utils=y
-# 移除基础版本以避免冲突
+# 禁用其他 wpad 版本以避免冲突
 # CONFIG_PACKAGE_wpad-basic is not set
-# CONFIG_PACKAGE_wpad-basic-wolfssl is not set
+# CONFIG_PACKAGE_wpad-wolfssl is not set
+# CONFIG_PACKAGE_wpad-basic-mbedtls is not set
+# CONFIG_PACKAGE_wpad-mbedtls is not set
 
 # =========================================
-# Fix: Resolve Recursive Dependency (关键修复)
-# 禁用 autosamba 和 ksmbd 以解决编译死循环
+# LuCI & Base System
 # =========================================
-CONFIG_PACKAGE_luci-app-samba4=y
-# CONFIG_PACKAGE_autosamba is not set
-# CONFIG_PACKAGE_kmod-fs-ksmbd is not set
-# CONFIG_PACKAGE_ksmbd-server is not set
-# CONFIG_PACKAGE_luci-app-ksmbd is not set
+CONFIG_PACKAGE_luci=y
+CONFIG_PACKAGE_luci-base=y
+CONFIG_PACKAGE_luci-mod-admin-full=y
+CONFIG_PACKAGE_luci-theme-argon=y
+CONFIG_PACKAGE_luci-app-firewall=y
+CONFIG_PACKAGE_luci-app-opkg=y
+CONFIG_PACKAGE_luci-app-uhttpd=y
+CONFIG_PACKAGE_luci-app-log-viewer=y
+CONFIG_PACKAGE_uhttpd=y
+CONFIG_PACKAGE_uhttpd-mod-ubus=y
+CONFIG_PACKAGE_luci-ssl=y
+CONFIG_PACKAGE_nginx-ssl=y
+CONFIG_PACKAGE_nginx-mod-luci=y
 
 # =========================================
-# Core Network & System & IPv6
+# Core Network & Protocols
 # =========================================
 CONFIG_PACKAGE_kmod-ipv6=y
-CONFIG_PACKAGE_ipv6helper=y
 CONFIG_PACKAGE_luci-proto-ipv6=y
-CONFIG_PACKAGE_dnsmasq_full_dhcpv6=y
-CONFIG_PACKAGE_6in4=y
-CONFIG_PACKAGE_6rd=y
-CONFIG_PACKAGE_6to4=y
+CONFIG_PACKAGE_luci-proto-ppp=y
+CONFIG_PACKAGE_dnsmasq_full=y
 CONFIG_PACKAGE_kmod-tun=y
 CONFIG_PACKAGE_kmod-inet-diag=y
 CONFIG_PACKAGE_kmod-nft-socket=y
 CONFIG_PACKAGE_kmod-nft-tproxy=y
 CONFIG_PACKAGE_ip-full=y
 CONFIG_PACKAGE_firewall4=y
-CONFIG_PACKAGE_ca-bundle=y
+CONFIG_PACKAGE_kmod-tcp-bbr=y # BBR 加速
+CONFIG_PACKAGE_kmod-zram=y     # ZRAM 虚拟内存
+CONFIG_PACKAGE_zram-swap=y
 CONFIG_PACKAGE_curl=y
-CONFIG_PACKAGE_ethtool=y
 CONFIG_PACKAGE_htop=y
 CONFIG_PACKAGE_nano=y
 
 # =========================================
-# LuCI Web Interface & Applications
+# Essential Household Apps (家庭应用)
 # =========================================
-CONFIG_PACKAGE_luci=y
-CONFIG_PACKAGE_luci-base=y
-CONFIG_PACKAGE_luci-mod-admin-full=y
-CONFIG_PACKAGE_luci-theme-bootstrap=y
-CONFIG_PACKAGE_luci-ssl=y
-CONFIG_PACKAGE_uhttpd=y
-CONFIG_PACKAGE_uhttpd-mod-ubus=y
-CONFIG_PACKAGE_luci-app-uhttpd=y
-CONFIG_PACKAGE_luci-app-firewall=y
-CONFIG_PACKAGE_luci-app-opkg=y
-CONFIG_PACKAGE_luci-app-ddns=y
-CONFIG_PACKAGE_luci-app-upnp=y
-CONFIG_PACKAGE_luci-app-wol=y
-CONFIG_PACKAGE_luci-app-watchcat=y
-CONFIG_PACKAGE_luci-app-qos=y
-CONFIG_PACKAGE_luci-app-transmission=y
+CONFIG_PACKAGE_luci-app-adguardhome=y    # DNS 广告过滤
+CONFIG_PACKAGE_luci-app-ddns=y           # 动态域名
+CONFIG_PACKAGE_luci-app-upnp=y           # UPnP 端口转发
+CONFIG_PACKAGE_luci-app-wol=y            # 网络唤醒
+CONFIG_PACKAGE_luci-app-watchcat=y       # 断线重连/定时重启
+CONFIG_PACKAGE_luci-app-qos=y            # 流量整形
+CONFIG_PACKAGE_luci-app-samba4=y         # 文件共享 (Samba 4)
+CONFIG_PACKAGE_luci-app-transmission=y   # BT/PT 下载客户端
+CONFIG_PACKAGE_luci-app-nikki=y          # 代理应用 (Nikki)
+CONFIG_PACKAGE_luci-app-autoreboot=y     # 自动重启脚本
 
 # =========================================
-# USB & Filesystem Support
+# USB & Storage Support
 # =========================================
-CONFIG_PACKAGE_block-mount=y
-CONFIG_PACKAGE_kmod-usb2=y
+CONFIG_PACKAGE_block-mount=y             # 自动挂载
 CONFIG_PACKAGE_kmod-usb3=y
 CONFIG_PACKAGE_kmod-usb-storage=y
 CONFIG_PACKAGE_kmod-usb-storage-uas=y
-CONFIG_PACKAGE_kmod-fs-ext4=y
+CONFIG_PACKAGE_kmod-fs-ext4=y            # Ext4 文件系统
+CONFIG_PACKAGE_kmod-fs-ntfs3=y           # NTFS3 文件系统 (高性能)
 CONFIG_PACKAGE_kmod-fs-vfat=y
 CONFIG_PACKAGE_kmod-fs-exfat=y
-CONFIG_PACKAGE_kmod-fs-ntfs3=y
 
 # =========================================
-# User Plugins
+# Bug Fixes & Clean Up (关键：解决编译错误)
+# 显式禁用已知冲突或不兼容的软件包
 # =========================================
-CONFIG_PACKAGE_autoreboot=y
-CONFIG_PACKAGE_autoreboot-cron=y
-CONFIG_PACKAGE_nikki=y
-# 确保 Passwall 相关依赖被选中 (如果仓库 feeds 包含它)
-CONFIG_PACKAGE_luci-app-passwall=y
+# 禁用 Samba 冲突组件
+# CONFIG_PACKAGE_autosamba is not set
+# CONFIG_PACKAGE_kmod-fs-ksmbd is not set
+# CONFIG_PACKAGE_ksmbd-server is not set
+# CONFIG_PACKAGE_luci-app-ksmbd is not set
 
-# =========================================
-# Build Options
-# =========================================
-CONFIG_DEVEL=y
-CONFIG_BUILD_PATENTED=y
-CONFIG_BUILD_PRELOAD=y
+# 禁用无关的驱动和固件
+# CONFIG_PACKAGE_qca-nss-crypto is not set # QCA (高通) 平台专用，与 MTK 无关
+# CONFIG_PACKAGE_luci-app-mtwifi is not set # 避免 MTK 驱动版本冲突
+# CONFIG_PACKAGE_rtw88-usb is not set      # Realtek 驱动
+
+# 禁用 Python 依赖冲突组件 (如果您不需要)
+# CONFIG_PACKAGE_fail2ban is not set
+# CONFIG_PACKAGE_flent is not set
+# CONFIG_PACKAGE_python-babel is not set
+# CONFIG_PACKAGE_python-docker is not set
+# CONFIG_PACKAGE_python-incremental is not set
